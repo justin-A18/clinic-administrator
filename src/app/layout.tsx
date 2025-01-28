@@ -6,7 +6,7 @@ import './globals.css';
 const poppins = Poppins({
 	variable: '--font-poppins',
 	subsets: ['latin'],
-	weight: ['400', '700'],
+	weight: ['300', '500', '700'],
 });
 
 export const metadata: Metadata = {
@@ -20,8 +20,10 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang='es'>
-			<body className={`${poppins.variable} antialiased`}>
+		<html
+			lang='es'
+			suppressHydrationWarning>
+			<body className={`${poppins.variable} antialiased font-poppins`}>
 				<TanstackProvider>{children}</TanstackProvider>
 			</body>
 		</html>
