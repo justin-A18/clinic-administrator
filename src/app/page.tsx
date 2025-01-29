@@ -80,7 +80,7 @@ export default function Home() {
 
 						<Button
 							type='submit'
-							className='w-full h-12'>
+							className='w-full h-12 rounded-md justify-center'>
 							Iniciar sesión
 						</Button>
 					</form>
