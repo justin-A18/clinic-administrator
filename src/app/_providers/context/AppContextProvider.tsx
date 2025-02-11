@@ -2,6 +2,10 @@
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from '@/app/_components/ui/toaster';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
+
+import { authStore } from '../store';
 
 export const AppContextProvider = ({
 	children,
@@ -9,6 +13,14 @@ export const AppContextProvider = ({
 	children: React.ReactNode;
 }) => {
 	const queryClient = new QueryClient();
+
+	const { token } = authStore();
+
+	const router = useRouter();
+
+	useEffect(() => {
+		router.replace(token ? '/admin/citas' : '/');
+	}, [token, router]);
 
 	return (
 		<QueryClientProvider client={queryClient}>
