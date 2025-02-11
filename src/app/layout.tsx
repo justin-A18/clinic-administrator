@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
-import { TanstackProvider } from './_providers';
+import { AppContextProvider } from './_providers/context';
 import './globals.css';
 
 const poppins = Poppins({
@@ -27,7 +27,7 @@ export default function RootLayout({
 			lang='es'
 			suppressHydrationWarning>
 			<body className={`${poppins.variable} antialiased font-poppins`}>
-				<TanstackProvider>{children}</TanstackProvider>
+				<AppContextProvider>{children}</AppContextProvider>
 			</body>
 		</html>
 	);

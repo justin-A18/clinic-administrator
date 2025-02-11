@@ -1,8 +1,8 @@
 'use client';
-
+import { Toaster } from '@/app/_components/ui/toaster';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-export const TanstackProvider = ({
+export const AppContextProvider = ({
 	children,
 }: {
 	children: React.ReactNode;
@@ -10,6 +10,9 @@ export const TanstackProvider = ({
 	const queryClient = new QueryClient();
 
 	return (
-		<QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+		<QueryClientProvider client={queryClient}>
+			{children}
+			<Toaster />
+		</QueryClientProvider>
 	);
 };

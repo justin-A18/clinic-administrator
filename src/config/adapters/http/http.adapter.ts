@@ -1,6 +1,6 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from "axios";
 
-import { MessageResponse } from "@/infrastructure/interfaces/global.interface";
+import { ErrorResponse } from "@/infrastructure/interfaces/global.interface";
 import { HttpImpl } from './http.impl';
 
 interface Options {
@@ -42,10 +42,10 @@ export class HttpAdapter implements HttpImpl {
 			return data;
 		} catch (error) {
 			const serverError = error as AxiosError;
-			const errorMessage = serverError.response?.data as MessageResponse;
+			const errorMessage = serverError.response?.data as ErrorResponse;
 			console.log(errorMessage);
 
-			throw new Error(errorMessage.message);
+			throw new Error(errorMessage.error);
 		}
 	}
 
@@ -62,10 +62,10 @@ export class HttpAdapter implements HttpImpl {
 			return data;
 		} catch (error) {
 			const serverError = error as AxiosError;
-			const errorMessage = serverError.response?.data as MessageResponse;
+			const errorMessage = serverError.response?.data as ErrorResponse;
 			console.log(errorMessage);
 
-			throw new Error(errorMessage.message);
+			throw new Error(errorMessage.error);
 		}
 	}
 
@@ -82,10 +82,10 @@ export class HttpAdapter implements HttpImpl {
 			return data;
 		} catch (error) {
 			const serverError = error as AxiosError;
-			const errorMessage = serverError.response?.data as MessageResponse;
+			const errorMessage = serverError.response?.data as ErrorResponse;
 			console.log(errorMessage);
 
-			throw new Error(errorMessage.message);
+			throw new Error(errorMessage.error);
 		}
 	}
 
@@ -101,10 +101,10 @@ export class HttpAdapter implements HttpImpl {
 			return data;
 		} catch (error) {
 			const serverError = error as AxiosError;
-			const errorMessage = serverError.response?.data as MessageResponse;
+			const errorMessage = serverError.response?.data as ErrorResponse;
 			console.log(errorMessage);
 
-			throw new Error(errorMessage.message);
+			throw new Error(errorMessage.error);
 		}
 	}
 

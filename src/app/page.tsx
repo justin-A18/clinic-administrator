@@ -5,7 +5,6 @@ import { useForm } from 'react-hook-form';
 import { userSchema } from './_schemas';
 import { z } from 'zod';
 
-import { Button } from '@/app/_components/ui/button';
 import {
 	Form,
 	FormControl,
@@ -17,8 +16,12 @@ import {
 import { Input } from '@/app/_components/ui/input';
 import { HeaderForm } from './_components/auth';
 import { Footer } from './_components/shared/footer/Footer';
+import { useUserLoginMutation } from './_hooks/auth';
+import { LoadingButton } from './_components/shared/button';
 
 export default function Home() {
+	const { loginMutation } = useUserLoginMutation();
+
 	const form = useForm<z.infer<typeof userSchema>>({
 		resolver: zodResolver(userSchema),
 		defaultValues: {
@@ -28,7 +31,7 @@ export default function Home() {
 	});
 
 	const onSubmit = (values: z.infer<typeof userSchema>) => {
-		console.log(values);
+		loginMutation.mutateAsync(values);
 	};
 
 	return (
@@ -78,11 +81,11 @@ export default function Home() {
 							)}
 						/>
 
-						<Button
+						<LoadingButton
 							type='submit'
-							className='w-full h-12 rounded-md justify-center'>
+							isLoading={loginMutation.isPending}>
 							Iniciar sesión
-						</Button>
+						</LoadingButton>
 					</form>
 				</Form>
 			</div>

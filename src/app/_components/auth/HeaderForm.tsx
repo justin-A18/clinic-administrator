@@ -1,5 +1,4 @@
-import { TypographyH1 } from '../shared/typography/TypographyH1';
-import { TypographyP } from '../shared/typography/TypographyP';
+import { TypographyH1, TypographyP } from '../shared/typography';
 
 export const HeaderForm = () => {
 	return (
