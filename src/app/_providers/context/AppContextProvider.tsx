@@ -1,6 +1,7 @@
 'use client';
-import { Toaster } from '@/app/_components/ui/toaster';
+
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { Toaster } from '@/app/_components/ui/toaster';
 
 export const AppContextProvider = ({
 	children,

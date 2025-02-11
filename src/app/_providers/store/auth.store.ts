@@ -1,8 +1,9 @@
 import { create } from 'zustand';
 
 interface Store {
-	token: string;
+	token: string | null;
 	setToken: (token: string) => void;
+	removeToken: () => void;
 }
 
 const tokenStorage = typeof window !== "undefined"
@@ -12,4 +13,8 @@ const tokenStorage = typeof window !== "undefined"
 export const authStore = create<Store>()((set) => ({
 	token: tokenStorage,
 	setToken: (token: string) => set(() => ({ token })),
+	removeToken: () => set(() => {
+		window.localStorage.removeItem('token');
+		return { token: null };
+	}),
 }));

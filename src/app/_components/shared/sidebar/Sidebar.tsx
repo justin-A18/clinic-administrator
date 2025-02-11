@@ -2,8 +2,11 @@ import { Bolt, LogOut } from 'lucide-react';
 import { Button } from '../../ui/button';
 import { SideHeader } from './SideHeader';
 import { SideLinks } from './SideLinks';
+import { authStore } from '@/app/_providers/store';
 
 export const Sidebar = () => {
+	const { removeToken } = authStore();
+
 	return (
 		<aside className='sticky top-0 h-screen border-r-[1px] border-[#E8E8E8]'>
 			<SideHeader />
@@ -15,7 +18,9 @@ export const Sidebar = () => {
 						<Bolt size={20} />
 						Configuración
 					</Button>
-					<Button variant='link'>
+					<Button
+						variant='link'
+						onClick={removeToken}>
 						<LogOut size={20} /> Cerrar sesión
 					</Button>
 				</div>
