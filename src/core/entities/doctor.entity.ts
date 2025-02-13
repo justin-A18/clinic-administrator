@@ -1,15 +1,4 @@
-export interface ErrorResponse {
-	error: string;
-	status: number;
-};
-
-export interface Service {
-	id: number;
-	name: string;
-	description: string;
-	price: number;
-}
-export interface Doctors {
+export interface Doctors{
 	id: number | null
 	name: string | void
 	lastname: string | void
@@ -20,8 +9,8 @@ export interface Doctors {
 	birth_date: string | void
 	email: string | void
 	address: string | void
-	start_time: string | void
-	end_time: string | void
+	start_time: string,
+	end_time: string,
 	salary: number | null
 	options: boolean
 }
