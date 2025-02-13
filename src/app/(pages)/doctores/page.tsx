@@ -1,9 +1,7 @@
 // "use client"
 import { doctorsColumns } from "@/app/_components/columns/doctorsColumns";
 import { DataTable } from "@/app/_components/shared/data-table";
-import { WindowModal } from "@/app/_components/shared/modal/WindowModal";
 import { Button } from "@/app/_components/ui/button";
-import { Skeleton } from "@/app/_components/ui/Skeleton";
 import { doctors } from "@/config/const";
 import { Doctors } from "@/infrastructure/interfaces/global.interface";
 import { useQuery } from "@tanstack/react-query";
@@ -42,7 +40,7 @@ const DoctorsPage = async () => {
 
 				{
 					!data ?
-						<Skeleton />
+							<p>Cargando...</p>
 						:
 						<DataTable
 							columns={doctorsColumns}
