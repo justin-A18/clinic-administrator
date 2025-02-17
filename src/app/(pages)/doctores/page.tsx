@@ -2,7 +2,7 @@
 import { doctorsColumns } from "@/app/_components/columns/doctorsColumns";
 import { DataTable } from "@/app/_components/shared/data-table";
 import { Button } from "@/app/_components/ui/button";
-import { UseQueryDoctorsGet } from "@/app/_hooks/doctors/DoctorsGet";
+import { UseQueryDoctorsGet } from "@/app/_hooks/doctors/DoctorsMutation";
 import { doctors } from "@/config/const";
 import { DoctorsGetUseCase } from "@/core/use-cases/auth";
 import { Doctors } from "@/infrastructure/interfaces/global.interface";

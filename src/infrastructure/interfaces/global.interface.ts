@@ -9,6 +9,15 @@ export interface Service {
 	description: string;
 	price: number;
 }
+
+export interface DoctorsGetInterface {
+	data: Doctors[]
+	message: string
+	status: number
+  }
+  
+
+
 export interface Doctors {
 	id: number | null
 	name: string | void
@@ -25,3 +34,4 @@ export interface Doctors {
 	salary: number | null
 	options: boolean
 }
+
