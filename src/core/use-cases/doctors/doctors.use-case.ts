@@ -1,11 +1,11 @@
 import { authStore } from "@/app/_providers/store";
 import { apiFetcher } from "@/config/adapters/api.adapter";
-import { Doctors } from "@/core/entities";
+import { DoctorEntity } from "@/core/entities";
 
 export const DoctorsGetUseCase = async () => {
 	const { setToken } = authStore();
 	// acá tiene que haber paso de parametros por el token?
-	const data = await apiFetcher.get('/doctors');
+	const data = await apiFetcher.get<DoctorEntity>('/doctors');
 	return data;
 };
 

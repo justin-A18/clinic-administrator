@@ -1,16 +1,16 @@
-export interface Doctors{
-	id: number | null
-	name: string | void
-	lastname: string | void
-	dni?: number | null
+export interface DoctorEntity{
+	id: number 
+	name: string 
+	lastname: string 
+	dni: number 
 	specialty: string
-	phone_number?: number | null
-	days: number | null
-	birth_date: string | void
-	email: string | void
-	address: string | void
+	phone_number: number 
+	days: number 
+	birth_date: string 
+	email: string 
+	address: string 
 	start_time: string,
 	end_time: string,
-	salary: number | null
+	salary: number 
 	options: boolean
 }

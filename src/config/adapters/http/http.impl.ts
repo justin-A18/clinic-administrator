@@ -14,7 +14,7 @@ export abstract class HttpImpl {
 		options?: AxiosRequestConfig,
 	): Promise<T>;
 
-	abstract patch<T>(
+	abstract put<T>(
 		url: string,
 		body: Record<string, unknown>,
 		token?: string,

@@ -3,6 +3,12 @@ export interface ErrorResponse {
 	status: number;
 };
 
+export interface HttpResponse {
+	data: null;
+	message: string;
+	status: number;
+}
+
 export interface Service {
 	id: number;
 	name: string;

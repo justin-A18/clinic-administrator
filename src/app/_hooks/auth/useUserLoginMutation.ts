@@ -8,11 +8,13 @@ import { loginUserUseCase } from "@/core/use-cases/auth";
 import { useLocalStorage } from "usehooks-ts";
 import { authStore } from "@/app/_providers/store";
 import { toast } from "../toast";
+import { useRouter } from "next/navigation";
 
 export const useUserLoginMutation = () => {
 
 	const [, setUserStorage] = useLocalStorage<string>("token", "");
 	const { setToken } = authStore();
+	const router = useRouter();
 
 	const loginMutation = useMutation({
 		mutationKey: ["login"],
@@ -22,6 +24,7 @@ export const useUserLoginMutation = () => {
 		onSuccess: (data) => {
 			setUserStorage(data);
 			setToken(data);
+			router.replace("/admin/citas");
 		},
 		onError: (error) => {
 			toast({
