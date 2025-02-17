@@ -2,27 +2,18 @@
 import { doctorsColumns } from "@/app/_components/columns/doctorsColumns";
 import { DataTable } from "@/app/_components/shared/data-table";
 import { Button } from "@/app/_components/ui/button";
+import { UseQueryDoctorsGet } from "@/app/_hooks/doctors/DoctorsGet";
 import { doctors } from "@/config/const";
+import { DoctorsGetUseCase } from "@/core/use-cases/auth";
 import { Doctors } from "@/infrastructure/interfaces/global.interface";
 import { useQuery } from "@tanstack/react-query";
 import { ChevronLeft, ChevronRight, CircleFadingPlus } from "lucide-react";
 
-async function getData(): Promise<Doctors[]> {
-	return doctors;
-}
 
-const DoctorsPage = async () => {
-	const data = await getData();
+const DoctorsPage =  () => {
+	
 
-
-	// const { isPending, error, data } = useQuery({
-	// 	queryKey: ['repoData'],
-	// 	queryFn: () =>
-	// 	  fetch('https://api.github.com/repos/TanStack/query').then((res) =>
-	// 		res.json(),
-	// 	  ),
-	//   })
-
+	console.log(UseQueryDoctorsGet)
 	return (
 		<div className='w-full h-full flex flex-col gap-4'>
 			<div className='flex justify-end'>
@@ -38,15 +29,25 @@ const DoctorsPage = async () => {
 
 			<div className={`space-y-3 `}>
 
+				{/* {
+					isPending && <p>cargando..</p>
+				}
 				{
-					!data ?
+					error && <p>hubo un error</p>
+				} */}
+
+				{/* {
+					<DataTable
+						columns={doctorsColumns}
+						data={data as Doctors}
+					/>
+
+				} */}
+				{/* {
+					isPending ?
 							<p>Cargando...</p>
 						:
-						<DataTable
-							columns={doctorsColumns}
-							data={data}
-						/>
-				}
+				} */}
 
 				<footer className='flex items-center justify-between'>
 					<div className='flex items-center gap-2'>
