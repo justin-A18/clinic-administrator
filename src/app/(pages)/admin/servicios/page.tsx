@@ -1,4 +1,4 @@
-import { servicesColumns } from '@/app/_components/columns/services';
+import { servicesColumns } from '@/app/_components/columns';
 import { DataTable } from '@/app/_components/shared/data-table';
 import { Button } from '@/app/_components/ui/button';
 import { services } from '@/config/const';

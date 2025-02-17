@@ -19,7 +19,9 @@ export const AppContextProvider = ({
 	const router = useRouter();
 
 	useEffect(() => {
-		router.replace(token ? '/admin/citas' : '/');
+		if (token === '' || !token) {
+			router.replace('/');
+		}
 	}, [token, router]);
 
 	return (

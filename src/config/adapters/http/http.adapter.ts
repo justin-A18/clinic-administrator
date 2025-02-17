@@ -69,7 +69,7 @@ export class HttpAdapter implements HttpImpl {
 		}
 	}
 
-	async patch<T>(
+	async put<T>(
 		url: string,
 		body: Record<string, unknown>,
 		token?: string,
