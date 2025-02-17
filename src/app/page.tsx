@@ -2,7 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { userSchema } from './_schemas';
+import { userSchema } from './_providers/_schemas';
 import { z } from 'zod';
 
 import {
@@ -19,7 +19,7 @@ import { Footer } from './_components/shared/footer/Footer';
 import { useUserLoginMutation } from './_hooks/auth';
 import { LoadingButton } from './_components/shared/button';
 
-export default function Home() {
+export default function LoginPage() {
 	const { loginMutation } = useUserLoginMutation();
 
 	const form = useForm<z.infer<typeof userSchema>>({

@@ -10,26 +10,26 @@ export const routesNav = [
 	{
 		name: 'Citas',
 		icon: <Calendar size={20} />,
-		route: '/citas',
+		route: '/admin/citas',
 	},
 	{
 		name: 'Servicios',
 		icon: <HeartPulse size={20} />,
-		route: '/servicios',
+		route: '/admin/servicios',
 	},
 	{
 		name: 'Paquetes',
 		icon: <Package size={20} />,
-		route: '/paquetes',
+		route: '/admin/paquetes',
 	},
 	{
 		name: 'Pacientes',
 		icon: <Users size={20} />,
-		route: '/pacientes',
+		route: '/admin/pacientes',
 	},
 	{
 		name: 'Doctores',
 		icon: <Stethoscope size={20} />,
-		route: '/doctores',
+		route: '/admin/doctores',
 	},
 ];

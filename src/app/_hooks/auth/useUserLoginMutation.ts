@@ -28,6 +28,7 @@ export const useUserLoginMutation = () => {
 				variant: 'destructive',
 				title: '¡Vaya! Algo salió mal.',
 				description: error.message,
+				duration: 3000
 			});
 		}
 	});
