@@ -51,7 +51,7 @@ export const getAppointmentsColumns = ({
 		header: 'Pagado',
 		cell: ({ getValue }) => {
 			const value = getValue<boolean>();
-			return value ? 'Sí' : 'No';
+			return value ? 'Cancelado' : 'Pendiente';
 		},
 	},
 	{
