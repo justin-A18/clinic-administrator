@@ -1,10 +1,5 @@
 export const contributors = [
 	{
-		username: 'Mauricio',
-		github: 'https://github.com/MLxpezz',
-		avatar: '/avatar-1.jpg',
-	},
-	{
 		username: 'Lautaro',
 		github: 'https://github.com/lautaroDSwebdev',
 		avatar: '/avatar-2.png',

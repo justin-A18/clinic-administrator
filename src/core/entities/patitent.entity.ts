@@ -1,4 +1,4 @@
-export interface PatientEntity {
+export interface IPatientEntity {
 	id: string;
 	name: string;
 	last_name: string;

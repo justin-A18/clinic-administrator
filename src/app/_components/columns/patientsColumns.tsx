@@ -1,28 +1,15 @@
 'use client';
 
-import { PatientEntity } from '@/core/entities';
+import { IPatientEntity } from '@/core/entities';
 import { ColumnDef } from '@tanstack/react-table';
 import { Badge } from '../ui/badge';
-import {
-	DropdownMenu,
-	DropdownMenuContent,
-	DropdownMenuItem,
-	DropdownMenuTrigger,
-} from '@/app/_components/ui/dropdown-menu';
-import { Ellipsis } from 'lucide-react';
-import { ModalProps } from '@/app/_providers/store';
-
-interface ActionsColumnsProps {
-	handleDeletePatient: (id: string) => void;
-	handleEditPatient: ({ entityType, type, data }: ModalProps) => void;
-	handleViewPatient?: () => void;
-}
+import { CustomDropdown } from '../shared/dropdown-menu';
+import { ActionsColumnsProps } from '@/infrastructure/interfaces/global.interface';
 
 export const getPatientsColumns = ({
-	handleDeletePatient,
-	handleEditPatient,
-	handleViewPatient,
-}: ActionsColumnsProps): ColumnDef<PatientEntity>[] => [
+	handleDelete: handleDeletePatient,
+	handleEdit: handleEditPatient,
+}: ActionsColumnsProps): ColumnDef<IPatientEntity>[] => [
 	{
 		accessorKey: 'id',
 		header: 'ID',
@@ -69,29 +56,16 @@ export const getPatientsColumns = ({
 			const patient = row.original;
 
 			return (
-				<DropdownMenu>
-					<DropdownMenuTrigger className='focus:outline-none'>
-						<Ellipsis />
-					</DropdownMenuTrigger>
-					<DropdownMenuContent>
-						<DropdownMenuItem onClick={handleViewPatient}>
-							Ver detalles
-						</DropdownMenuItem>
-						<DropdownMenuItem
-							onClick={() =>
-								handleEditPatient({
-									entityType: 'paciente',
-									type: 'editar',
-									data: patient,
-								})
-							}>
-							Editar datos
-						</DropdownMenuItem>
-						<DropdownMenuItem onClick={() => handleDeletePatient(patient.id)}>
-							Eliminar
-						</DropdownMenuItem>
-					</DropdownMenuContent>
-				</DropdownMenu>
+				<CustomDropdown
+					handleEdit={() =>
+						handleEditPatient({
+							entityType: 'paciente',
+							type: 'editar',
+							data: patient,
+						})
+					}
+					handleDelete={() => handleDeletePatient(patient.id)}
+				/>
 			);
 		},
 	},

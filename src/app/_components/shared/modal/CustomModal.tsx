@@ -8,7 +8,7 @@ const formComponents = {
 	paciente: lazy(() => import('../../patients/PatientForm')),
 	doctor: lazy(() => import('../../patients/PatientForm')),
 	cita: lazy(() => import('../../patients/PatientForm')),
-	servicio: lazy(() => import('../../patients/PatientForm')),
+	servicio: lazy(() => import('../../services/ServicesForm')),
 	paquete: lazy(() => import('../../patients/PatientForm')),
 };
 

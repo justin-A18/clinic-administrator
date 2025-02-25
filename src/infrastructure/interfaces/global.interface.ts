@@ -1,3 +1,5 @@
+import { ModalProps } from "@/app/_providers/store";
+
 export interface ErrorResponse {
 	error: string;
 	status: number;
@@ -9,9 +11,8 @@ export interface HttpResponse {
 	status: number;
 }
 
-export interface Service {
-	id: number;
-	name: string;
-	description: string;
-	price: number;
+export interface ActionsColumnsProps {
+	handleEdit: ({ entityType, type, data }: ModalProps) => void;
+	handleDelete: (id: string) => void;
+	handleView?: () => void;
 }

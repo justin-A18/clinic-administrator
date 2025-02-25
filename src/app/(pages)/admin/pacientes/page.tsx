@@ -40,8 +40,8 @@ const PatiensPage = () => {
 				) : (
 					<DataTable
 						columns={getPatientsColumns({
-							handleDeletePatient: deletePatient.mutate,
-							handleEditPatient: openModal,
+							handleDelete: deletePatient.mutate,
+							handleEdit: openModal,
 						})}
 						data={data!.data}
 					/>

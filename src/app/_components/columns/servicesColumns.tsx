@@ -1,10 +1,15 @@
 'use client';
 
 import { FormatHelper } from '@/config/helpers';
-import { Service } from '@/infrastructure/interfaces/global.interface';
+import { IServiceEntity } from '@/core/entities';
 import { ColumnDef } from '@tanstack/react-table';
+import { CustomDropdown } from '../shared/dropdown-menu';
+import { ActionsColumnsProps } from '@/infrastructure/interfaces/global.interface';
 
-export const servicesColumns: ColumnDef<Service>[] = [
+export const getServicesColumns = ({
+	handleDelete,
+	handleEdit,
+}: ActionsColumnsProps): ColumnDef<IServiceEntity>[] => [
 	{
 		accessorKey: 'id',
 		header: 'ID',
@@ -31,6 +36,25 @@ export const servicesColumns: ColumnDef<Service>[] = [
 		cell: ({ getValue }) => {
 			const value = getValue<number>();
 			return FormatHelper.currency(value);
+		},
+	},
+	{
+		id: 'actions',
+		cell: ({ row }) => {
+			const service = row.original;
+
+			return (
+				<CustomDropdown
+					handleDelete={() => handleDelete(service.id)}
+					handleEdit={() =>
+						handleEdit({
+							entityType: 'servicio',
+							type: 'editar',
+							data: service,
+						})
+					}
+				/>
+			);
 		},
 	},
 ];

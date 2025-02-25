@@ -1,48 +1,51 @@
-import { servicesColumns } from '@/app/_components/columns';
+'use client';
+
+import { getServicesColumns } from '@/app/_components/columns';
 import { DataTable } from '@/app/_components/shared/data-table';
+import { Pagination } from '@/app/_components/shared/pagination';
+import { TableLoadingSkeleton } from '@/app/_components/shared/skeleton';
 import { Button } from '@/app/_components/ui/button';
-import { services } from '@/config/const';
-import { Service } from '@/infrastructure/interfaces/global.interface';
-import { ChevronLeft, ChevronRight, CircleFadingPlus } from 'lucide-react';
+import {
+	useDeleteServiceMutation,
+	useGetAllServicesQuery,
+} from '@/app/_hooks/service';
+import { useModalStore } from '@/app/_providers/store';
+import { CircleFadingPlus } from 'lucide-react';
 
-async function getData(): Promise<Service[]> {
-	return services;
-}
+const ServicesPage = () => {
+	const { data, isLoading } = useGetAllServicesQuery();
+	const { mutateAsync: deleteMutateSync } = useDeleteServiceMutation();
 
-const ServicesPage = async () => {
-	const data = await getData();
+	const { openModal } = useModalStore();
 
 	return (
 		<div className='w-full h-full flex flex-col gap-4'>
 			<div className='flex justify-end'>
-				<Button className='rounded-md text-sm px-4 py-3 hover:bg-primary/90'>
+				<Button
+					className='rounded-md text-sm px-4 py-3 hover:bg-primary/90'
+					onClick={() => openModal({ entityType: 'servicio', type: 'crear' })}>
 					<CircleFadingPlus size={20} />
 					Crear servicio
 				</Button>
 			</div>
 
 			<div className='space-y-3'>
-				<DataTable
-					columns={servicesColumns}
-					data={data}
+				{isLoading ? (
+					<TableLoadingSkeleton />
+				) : (
+					<DataTable
+						columns={getServicesColumns({
+							handleDelete: deleteMutateSync,
+							handleEdit: openModal,
+						})}
+						data={data!.data}
+					/>
+				)}
+
+				<Pagination
+					length={data?.data.length || 0}
+					isLoading={isLoading}
 				/>
-
-				<footer className='flex items-center justify-between'>
-					<div className='flex items-center gap-2'>
-						<span className='text-xs text-[#8F8F8F]'>10 de 100 elementos</span>
-					</div>
-
-					<div className='flex items-center'>
-						<Button className='rounded-md text-xs px-4 py-3 bg-transparent text-black hover:bg-transparent hover:text-gray-500 shadow-none'>
-							<ChevronLeft size={16} />
-							Anterior
-						</Button>
-						<Button className='rounded-md text-xs px-4 py-3 bg-transparent text-black hover:bg-transparent hover:text-gray-500 shadow-none'>
-							Siguiente
-							<ChevronRight size={16} />
-						</Button>
-					</div>
-				</footer>
 			</div>
 		</div>
 	);

@@ -33,10 +33,10 @@ import {
 	useCreatePatientMutation,
 	useUpdatePatientMutation,
 } from '@/app/_hooks/patient';
-import { PatientEntity } from '@/core/entities';
+import { IPatientEntity } from '@/core/entities';
 
 const PatientForm = () => {
-	const { data, type } = useModalStore();
+	const { data, type, entityType } = useModalStore();
 
 	const form = useForm<z.infer<typeof patientSchema>>({
 		resolver: zodResolver(patientSchema),
@@ -50,7 +50,8 @@ const PatientForm = () => {
 
 	const onSubmit = (values: z.infer<typeof patientSchema>) => {
 		if (type === 'editar') {
-			updateMutateAsync({ body: values, id: (data as PatientEntity).id });
+			updateMutateAsync({ body: values, id: (data as IPatientEntity).id });
+			console.log(values);
 			return;
 		}
 
@@ -69,7 +70,7 @@ const PatientForm = () => {
 				onSubmit={form.handleSubmit(onSubmit)}
 				className='space-y-5 w-full bg-white p-4 rounded-md'>
 				<DialogTitle className='text-2xl'>
-					{ConvertHelper.toCapitalCase(type + ' Paciente')}
+					{ConvertHelper.toCapitalCase(`${type} ${entityType}`)}
 				</DialogTitle>
 
 				<div className='flex flex-col md:items-center md:flex-row gap-5 md:justify-between'>
@@ -261,7 +262,7 @@ const PatientForm = () => {
 				<LoadingButton
 					type='submit'
 					isLoading={false}>
-					{ConvertHelper.toCapitalCase(type + ' paciente')}
+					{ConvertHelper.toCapitalCase(`${type} ${entityType}`)}
 				</LoadingButton>
 			</form>
 		</Form>
