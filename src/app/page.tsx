@@ -31,8 +31,7 @@ export default function LoginPage() {
 	});
 
 	const onSubmit = (values: z.infer<typeof userSchema>) => {
-		//loginMutation.mutateAsync(values);
-		loginMutation.mutate(values);
+		loginMutation.mutateAsync(values);
 		console.log(loginMutation.data);
 	};
 
