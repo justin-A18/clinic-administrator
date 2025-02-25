@@ -22,6 +22,8 @@ export const AppContextProvider = ({
 		if (token === '' || !token) {
 			router.replace('/');
 		}
+
+		
 	}, [token, router]);
 
 	return (

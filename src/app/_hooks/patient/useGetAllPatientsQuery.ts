@@ -10,7 +10,7 @@ export const useGetAllPatientsQuery = () => {
 	const { token } = authStore();
 
 	const getAllPatientsQuery = useQuery({
-		queryKey: ['getAllPatients', token],
+		queryKey: ['patients', token],
 		queryFn: () => {
 			return getAllPatientsUseCase(apiFetcher, token);
 		},

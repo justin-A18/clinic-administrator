@@ -1,17 +1,11 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
-import { Sidebar } from '../_components/shared/sidebar';
+
 import { TypographyH1 } from '../_components/shared/typography';
+import { CustomModal } from '../_components/shared/modal';
+import { Sidebar } from '../_components/shared/sidebar';
 import { ConvertHelper } from '@/config/helpers';
-import { Input } from '../_components/ui/input';
-import { Label } from '../_components/ui/label';
-import {
-	Dialog,
-	DialogContent,
-	DialogHeader,
-	DialogTitle,
-} from '../_components/ui/dialog';
 
 const AdminLayout = ({ children }: { children: React.ReactNode }) => {
 	const pathname = usePathname();
@@ -30,37 +24,7 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
 					<div className='w-full h-full bg-white rounded-lg p-5'>
 						{children}
 
-						<Dialog defaultOpen={true}>
-							<DialogContent className='sm:max-w-[425px]'>
-								<DialogHeader>
-									<DialogTitle>Edit profile</DialogTitle>
-								</DialogHeader>
-								<div className='grid gap-4 py-4'>
-									<div className='grid grid-cols-4 items-center gap-4'>
-										<Label
-											htmlFor='name'
-											className='text-right'>
-											Name
-										</Label>
-										<Input
-											id='name'
-											className='col-span-3'
-										/>
-									</div>
-									<div className='grid grid-cols-4 items-center gap-4'>
-										<Label
-											htmlFor='username'
-											className='text-right'>
-											Username
-										</Label>
-										<Input
-											id='username'
-											className='col-span-3'
-										/>
-									</div>
-								</div>
-							</DialogContent>
-						</Dialog>
+						<CustomModal />
 					</div>
 				</section>
 			</main>

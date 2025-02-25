@@ -10,8 +10,19 @@ import {
 	DropdownMenuTrigger,
 } from '@/app/_components/ui/dropdown-menu';
 import { Ellipsis } from 'lucide-react';
+import { ModalProps } from '@/app/_providers/store';
 
-export const patientsColumns: ColumnDef<PatientEntity>[] = [
+interface ActionsColumnsProps {
+	handleDeletePatient: (id: string) => void;
+	handleEditPatient: ({ entityType, type, data }: ModalProps) => void;
+	handleViewPatient?: () => void;
+}
+
+export const getPatientsColumns = ({
+	handleDeletePatient,
+	handleEditPatient,
+	handleViewPatient,
+}: ActionsColumnsProps): ColumnDef<PatientEntity>[] => [
 	{
 		accessorKey: 'id',
 		header: 'ID',
@@ -57,17 +68,28 @@ export const patientsColumns: ColumnDef<PatientEntity>[] = [
 		cell: ({ row }) => {
 			const patient = row.original;
 
-			console.log(patient);
-
 			return (
 				<DropdownMenu>
 					<DropdownMenuTrigger className='focus:outline-none'>
 						<Ellipsis />
 					</DropdownMenuTrigger>
 					<DropdownMenuContent>
-						<DropdownMenuItem>Ver detalles</DropdownMenuItem>
-						<DropdownMenuItem>Editar datos</DropdownMenuItem>
-						<DropdownMenuItem>Eliminar</DropdownMenuItem>
+						<DropdownMenuItem onClick={handleViewPatient}>
+							Ver detalles
+						</DropdownMenuItem>
+						<DropdownMenuItem
+							onClick={() =>
+								handleEditPatient({
+									entityType: 'paciente',
+									type: 'editar',
+									data: patient,
+								})
+							}>
+							Editar datos
+						</DropdownMenuItem>
+						<DropdownMenuItem onClick={() => handleDeletePatient(patient.id)}>
+							Eliminar
+						</DropdownMenuItem>
 					</DropdownMenuContent>
 				</DropdownMenu>
 			);
