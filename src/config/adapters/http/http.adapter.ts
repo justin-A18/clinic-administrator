@@ -17,6 +17,7 @@ export class HttpAdapter implements HttpImpl {
 			baseURL: options.baseURL,
 			params: options.params,
 			headers: options.headers,
+			withCredentials: true,
 		});
 	}
 
