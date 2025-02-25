@@ -6,7 +6,7 @@ import { lazy } from 'react';
 
 const formComponents = {
 	paciente: lazy(() => import('../../patients/PatientForm')),
-	doctor: lazy(() => import('../../patients/PatientForm')),
+	doctor: lazy(() => import('../../doctors/DoctorsForm')),
 	cita: lazy(() => import('../../patients/PatientForm')),
 	servicio: lazy(() => import('../../services/ServicesForm')),
 	paquete: lazy(() => import('../../patients/PatientForm')),
