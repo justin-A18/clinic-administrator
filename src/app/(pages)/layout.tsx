@@ -30,7 +30,7 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
 					<div className='w-full h-full bg-white rounded-lg p-5'>
 						{children}
 
-						<Dialog defaultOpen={true}>
+						<Dialog defaultOpen={false}>
 							<DialogContent className='sm:max-w-[425px]'>
 								<DialogHeader>
 									<DialogTitle>Edit profile</DialogTitle>

@@ -33,7 +33,7 @@ export function DataTable<TData, TValue>({
 
 	return (
 		<div className='rounded-md border'>
-			<Table>
+			<Table className='overflow-x-scroll overflow-x-hidden'>
 				<TableHeader>
 					{table.getHeaderGroups().map((headerGroup) => (
 						<TableRow
@@ -47,7 +47,7 @@ export function DataTable<TData, TValue>({
 											: flexRender(
 													header.column.columnDef.header,
 													header.getContext(),
-											  )}
+											)}
 									</TableHead>
 								);
 							})}

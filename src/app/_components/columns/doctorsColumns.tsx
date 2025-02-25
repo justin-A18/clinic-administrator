@@ -1,15 +1,21 @@
 'use client';
-
-
-import { Doctors, Service } from '@/infrastructure/interfaces/global.interface';
+import { DoctorsInterface, handleActionsDoctor } from '@/infrastructure/interfaces/global.interface';
 import { ColumnDef } from '@tanstack/react-table';
-import { FormatHelper } from '@/config/helpers';
-export const doctorsColumns: ColumnDef<Doctors>[] = [
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../ui/dropdown-menu';
+import { Ellipsis } from 'lucide-react';
+import { useGetDetailsByIdDoctorsQuery } from "../../_hooks/doctors/useGetDetailsByIdDoctorsQuery"
+
+const formatDate = (dateString: string) => {
+	const date = new Date(dateString);
+	return date.toLocaleString("es-EN", { timeZone: "UTC" });
+};
+
+export const doctorsColumns = ({ handleDelDoctor, handleUpdateDoctor }: handleActionsDoctor): ColumnDef<DoctorsInterface>[] => [
 	{
 		accessorKey: 'id',
 		header: 'ID',
 		cell: ({ getValue }) => {
-			const value = getValue<string>();
+			const value = getValue<number>();
 			return `#${value}`;
 		},
 	},
@@ -65,8 +71,8 @@ export const doctorsColumns: ColumnDef<Doctors>[] = [
 		accessorKey: 'days',
 		header: 'Turnos disp',
 		cell: ({ getValue }) => {
-			const value = getValue<number>();
-			return !value ? <p className='text-red-400'></p> : <p className='text-black'>{value} </p>;	
+			const value = getValue<string>();
+			return !value ? <p className='text-red-400'></p> : <p className='text-black'>{value} </p>;
 		},
 	},
 	{
@@ -75,8 +81,10 @@ export const doctorsColumns: ColumnDef<Doctors>[] = [
 		cell: ({ getValue }) => {
 			const value = getValue<string>();
 			return (
-				<p className={`cursor-pointer ${value ? "text-[#000]  " : "text-red-400"} }`}>
-					{value ? value : ""}
+				<p className={`cursor-pointer truncate  ${value ? "text-[#000]  " : "text-red-400"} }`}>
+					{
+						formatDate(value)
+					}
 				</p>
 			);
 		},
@@ -97,8 +105,8 @@ export const doctorsColumns: ColumnDef<Doctors>[] = [
 		accessorKey: 'phone_number',
 		header: 'Tel',
 		cell: ({ getValue }) => {
-			const value = getValue<number>();
-			return !value ? <p className='text-red-400'></p> : <p className='text-black'>{value} </p>;	
+			const value = getValue<string>();
+			return !value ? <p className='text-red-400'></p> : <p className='text-black'>{value} </p>;
 		},
 	},
 	{
@@ -107,20 +115,8 @@ export const doctorsColumns: ColumnDef<Doctors>[] = [
 		cell: ({ getValue }) => {
 			const value = getValue<string>();
 			return (
-				<p className={`cursor-pointer ${value ? "text-[#000]  " : "text-red-400"} }`}>
+				<p className={`cursor-pointer truncate overflow-hidden text-ellipsis ${value ? "text-[#000]  " : "text-red-400"} }`}>
 					{value ? value : ""}
-				</p>
-			);
-		},
-	},
-	{
-		accessorKey: 'salary',
-		header: 'Sueldo',
-		cell: ({ getValue }) => {
-			const value = getValue<number>();
-			return (
-				<p className={`cursor-pointer ${value ? "text-[#000]  " : "text-red-400"} }`}>
-					${value ? value : ""}
 				</p>
 			);
 		},
@@ -150,14 +146,35 @@ export const doctorsColumns: ColumnDef<Doctors>[] = [
 		},
 	},
 	{
+		accessorKey: 'salary',
+		header: 'Sueldo',
+		cell: ({ getValue }) => {
+			const value = getValue<number>();
+			return (
+				<p className={`cursor-pointer ${value ? "text-[#000]  " : "text-red-400"} }`}>
+					${value ? value : ""}
+				</p>
+			);
+		},
+	},
+	{
 		accessorKey: 'actions',
 		header: 'Acciones',
-		cell: ({ getValue }) => {
-			return (
-				<div>
-					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style={{ fill: "#000", cursor: "pointer" }}><path d="M19.045 7.401c.378-.378.586-.88.586-1.414s-.208-1.036-.586-1.414l-1.586-1.586c-.378-.378-.88-.586-1.414-.586s-1.036.208-1.413.585L4 13.585V18h4.413L19.045 7.401zm-3-3 1.587 1.585-1.59 1.584-1.586-1.585 1.589-1.584zM6 16v-1.585l7.04-7.018 1.586 1.586L7.587 16H6zm-2 4h16v2H4z"></path></svg>
-				</div>
+		cell: ({ row }) => {
+			const { id } = row.original,
+				{ original } = row
 
+			return (
+				<DropdownMenu>
+					<DropdownMenuTrigger className='focus:outline-none'>
+						<Ellipsis />
+					</DropdownMenuTrigger>
+					<DropdownMenuContent>
+						<DropdownMenuItem onClick={() => useGetDetailsByIdDoctorsQuery(id)}>Ver detalles</DropdownMenuItem>
+						<DropdownMenuItem onClick={() => console.log(original)}>Editar datos</DropdownMenuItem>
+						<DropdownMenuItem onClick={() => handleDelDoctor(id)}>Eliminar</DropdownMenuItem>
+					</DropdownMenuContent>
+				</DropdownMenu>
 			);
 		},
 	}
