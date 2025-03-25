@@ -1,6 +1,6 @@
 'use client';
 
-import { CircleFadingPlus } from 'lucide-react';
+import { CircleFadingPlus, Users } from 'lucide-react';
 import { TableLoadingSkeleton } from '@/app/_components/shared/skeleton';
 import { Pagination } from '@/app/_components/shared/pagination';
 import { DataTable } from '@/app/_components/shared/data-table';
@@ -11,6 +11,7 @@ import {
 import { getPatientsColumns } from '@/app/_components/columns';
 import { Button } from '@/app/_components/ui/button';
 import { useModalStore } from '@/app/_providers/store/modal.store';
+import { CardInfo } from '@/app/_components/shared/card';
 
 const PatiensPage = () => {
 	const { data, isLoading } = useGetAllPatientsQuery();
@@ -20,6 +21,16 @@ const PatiensPage = () => {
 
 	return (
 		<div className='w-full h-full flex flex-col gap-4'>
+			<div className='grid grid-cols-3 gap-4'>
+				{
+					data?.data &&
+					<CardInfo
+						icon={ <Users size={20} />}
+						title='Pacientes Totales'
+						value={data?.data.length}
+					/>
+				}
+			</div>
 			<div className='flex justify-end'>
 				<Button
 					className='rounded-md text-sm px-4 py-3 hover:bg-primary/90'

@@ -6,43 +6,18 @@ import { useForm } from 'react-hook-form';
 import { es } from 'date-fns/locale';
 import { format } from 'date-fns';
 import { z } from 'zod';
-
 import { doctorSchema } from '@/app/_schemas';
 import { cn } from '@/app/_lib/utils';
-
-import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import { LoadingButton } from '../shared/button';
-import { DialogTitle } from '../ui/dialog';
-import { Calendar } from '../ui/calendar';
-import { Button } from '../ui/button';
-import { Input } from '../ui/input';
-import {
-	Form,
-	FormControl,
-	FormField,
-	FormItem,
-	FormLabel,
-	FormMessage,
-} from '../ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form';
 import { useModalStore } from '@/app/_providers/store';
 import { useEffect } from 'react';
 import { ConvertHelper } from '@/config/helpers';
 import { IDoctorEntity } from '@/core/entities';
-import {
-	useCreateDoctorMutation,
-	useUpdateDoctorMutation,
-} from '@/app/_hooks/doctor';
+import { useCreateDoctorMutation, useUpdateDoctorMutation } from '@/app/_hooks/doctor';
 import MultipleSelector from '../shared/multiple-selector/MultipleSelector';
-
-const OPTIONS = [
-	{ label: 'Lunes', value: 'lunes' },
-	{ label: 'Martes', value: 'martes' },
-	{ label: 'Miércoles', value: 'miercoles' },
-	{ label: 'Jueves', value: 'jueves' },
-	{ label: 'Viernes', value: 'viernes' },
-	{ label: 'Sabado', value: 'sabado', disable: true },
-	{ label: 'Domingo', value: 'domingo', disable: true },
-];
+import { Button, Calendar, DialogTitle, Input, Popover, PopoverContent, PopoverTrigger } from '../ui';
+import { OPTIONS } from '@/config/const';
 
 const DoctorsForm = () => {
 	const { data, type, entityType } = useModalStore();
@@ -57,11 +32,10 @@ const DoctorsForm = () => {
 	const { mutateAsync: updateMutateAsync } = useUpdateDoctorMutation();
 
 	const onSubmit = (values: z.infer<typeof doctorSchema>) => {
+
 		const formattedValues = {
-			...values,
-			days: Array.isArray(values.days)
-				? values.days.map((day) => day.value).join(',')
-				: values.days,
+			...values, days: Array.isArray(values.days)
+				? values.days.map((day) => day.value).join(',') : values.days
 		};
 
 		if (type === 'editar') {
@@ -81,12 +55,12 @@ const DoctorsForm = () => {
 				...data,
 				days: (data as IDoctorEntity).days
 					? (data as IDoctorEntity).days.split(',').map(
-							(day) =>
-								OPTIONS.find((option) => option.value === day) || {
-									label: day,
-									value: day.toLocaleLowerCase(),
-								},
-					  )
+						(day) =>
+							OPTIONS.find((option) => option.value === day) || {
+								label: day,
+								value: day.toLocaleLowerCase(),
+							},
+					)
 					: [],
 			});
 		}
@@ -178,11 +152,7 @@ const DoctorsForm = () => {
 												className={cn(
 													'w-full text-left font-normal rounded-md',
 												)}>
-												{field.value
-													? format(new Date(field.value), 'dd-MM-yyyy', {
-															locale: es,
-													  })
-													: 'Seleccione una fecha'}
+												{field.value ? format(new Date(field.value), 'dd-MM-yyyy', { locale: es, }) : 'Seleccione una fecha'}
 												<CalendarIcon className='ml-auto size-4 opacity-50' />
 											</Button>
 										</FormControl>

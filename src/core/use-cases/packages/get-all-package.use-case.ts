@@ -1,7 +1,7 @@
 import { HttpAdapter } from "@/config/adapters/http";
-import { DoctorsResponse } from "@/infrastructure/interfaces/doctor.interface";
+import { IPackagesEntity } from "@/core/entities/package.entity";
 
 export const getAllPackagesUseCase = async (apiFetcher: HttpAdapter, token: string) => {
-	const data = await apiFetcher.get<DoctorsResponse>('/packages', token);
+	const data = await apiFetcher.get<IPackagesEntity>('/packages', token);
 	return data;
 };

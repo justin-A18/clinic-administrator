@@ -32,9 +32,9 @@ export function DataTable<TData, TValue>({
 	});
 
 	return (
-		<div className='rounded-md border'>
+		<div className='rounded-md border '>
 			<Table>
-				<TableHeader>
+				<TableHeader className=''>
 					{table.getHeaderGroups().map((headerGroup) => (
 						<TableRow
 							key={headerGroup.id}
@@ -45,21 +45,21 @@ export function DataTable<TData, TValue>({
 										{header.isPlaceholder
 											? null
 											: flexRender(
-													header.column.columnDef.header,
-													header.getContext(),
-											  )}
+												header.column.columnDef.header,
+												header.getContext(),
+											)}
 									</TableHead>
 								);
 							})}
 						</TableRow>
 					))}
 				</TableHeader>
-				<TableBody>
+				<TableBody className=''>
 					{table.getRowModel().rows?.length ? (
 						table.getRowModel().rows.map((row) => (
 							<TableRow
 								key={row.id}
-								className='even:bg-[#f3f3f3] transition-colors hover:bg-[#f3f3f3] h-[3.4rem]'
+								className='even:bg-[#f3f3f3] transition-colors hover:bg-[#f3f3f3] h-[3.4rem] '
 								data-state={row.getIsSelected() && 'selected'}>
 								{row.getVisibleCells().map((cell) => (
 									<TableCell key={cell.id}>
