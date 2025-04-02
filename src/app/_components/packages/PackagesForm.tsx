@@ -8,8 +8,10 @@ import { z } from 'zod';
 import { LoadingButton } from '../shared/button';
 import { ConvertHelper } from '@/config/helpers';
 import { DialogTitle, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input } from '../ui';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/Select';
 import { useGetAllServicesQuery } from '@/app/_hooks/service';
+import { Packages } from '@/core/entities/package.entity';
+import MultipleSelector from '../shared/multiple-selector/MultipleSelector';
+import { ApiMapper } from '@/config/adapters/mapper/ApiMapper.adapter';
 
 const PackagesForm = () => {
     const { data, type, entityType } = useModalStore();
@@ -28,28 +30,28 @@ const PackagesForm = () => {
             form.reset(data);
         }
     }, [data]);
-    
-    console.log("data seleccionada del edit")
-    console.log(data)
+
+
     const onSubmit = (values: z.infer<typeof PackageSchema>) => {
 
-        if (type === 'editar' && data) {
+        if (type === 'editar' && (data as Packages).id) {
 
-            const DataPack = {
-                ...values,
-                service_ids: [data.service_ids]
-            }
-            // mutateEditPack(DataPack);
-            console.log("data editada");
-            // console.log(DataPack);
+            // const DataPackEdit = {
+            //     name: values.name,
+            //     service_ids: (data as Packages).services.map(e => ({ id: e.id })),
+            //     id: (data as Packages).id
+            // }
+            // mutateEditPack(DataPackEdit);
+            // console.log("data editada");
+            // console.log(DataPackEdit);
             return;
         }
-        const DataPack = {
-            ...values,
-            service_ids: [values.service_ids]
-        }
-        createMutatePack.mutate(DataPack);
-        // console.log(values)
+        // const DataPack = {
+        //     name: values.name,
+        //     service_ids: [values.service_ids]
+        // }
+        // createMutatePack.mutate(DataPack);
+        console.log(values)
     };
 
 
@@ -82,34 +84,35 @@ const PackagesForm = () => {
                         )}
                     />
 
+
                     <FormField
                         control={form.control}
                         name='service_ids'
-                        render={({ field }) => (
-                            <FormItem className='flex-1'>
-                                <FormLabel className='font-medium'>Selecciona el servicio</FormLabel>
-                                <FormControl className='cursor-pointer'>
-                                    <Select onValueChange={(e) => field.onChange(Number(e))}>
-                                        <SelectTrigger>
-                                            <SelectValue placeholder={isLoading ? 'Cargando...' : 'Selecciona un servicio'} />
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                            {isLoading ? (
-                                                <SelectItem disabled value='error'>Cargando Servicio</SelectItem>
-                                            ) : (
-                                                dataServices?.data?.map((serv) => (
-                                                    <SelectItem key={serv.id} value={serv.id.toString()}>
-                                                        {serv.name}
-                                                    </SelectItem>
-                                                ))
-                                            )}
-                                        </SelectContent>
-                                    </Select>
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
+                        render={({ field }) => {
+                            console.log("Data que devuelve el adapter mapper al abrir los formularios")
+                            console.log(ApiMapper(dataServices?.data))
+                            return (
+                                <FormItem className='flex-1'>
+                                    <FormLabel className='font-medium'>Servicios</FormLabel>
+                                    <FormControl>
+                                        <MultipleSelector
+                                            defaultOptions={ApiMapper(isLoading ? []  : dataServices?.data)}
+                                            placeholder='Selecciona los servicios'
+                                            emptyIndicator={
+                                                <p className='text-center text-lg leading-10 text-gray-600 dark:text-gray-400'>
+                                                    No hay resultados
+                                                </p>
+                                            }
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            );
+                        }}
                     />
+
+
                 </div>
 
                 <LoadingButton
@@ -117,8 +120,8 @@ const PackagesForm = () => {
                     isLoading={false}>
                     {ConvertHelper.toCapitalCase(`${type} ${entityType}`)}
                 </LoadingButton>
-            </form>
-        </Form>
+            </form >
+        </Form >
     )
 }
 export default PackagesForm
