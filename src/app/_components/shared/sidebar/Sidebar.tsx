@@ -8,7 +8,7 @@ export const Sidebar = () => {
 	const { removeToken } = authStore();
 
 	return (
-		<aside className='sticky top-0 h-screen border-r-[1px] border-[#E8E8E8]'>
+		<aside className='sticky   top-0 h-screen border-r-[1px] border-[#E8E8E8]'>
 			<SideHeader />
 			<div className='flex flex-col justify-between min-h-[calc(100vh-69px)]'>
 				<SideLinks />

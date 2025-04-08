@@ -4,13 +4,13 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from '../toast';
 import { createPackageUseCase } from '@/core/use-cases/packages';
 
-export const useCreateDoctorMutation = () => {
+export const useCreatePackageMutation = () => {
 	const { token } = authStore();
 	const { closeModal } = useModalStore();
 
 	const queryClient = useQueryClient();
 
-	const createDoctorMutation = useMutation({
+	const createPackageMutation = useMutation({
 		mutationKey: ['create-package', token],
 		mutationFn: (body: Record<string, unknown>) => {
 			return createPackageUseCase(apiFetcher, body, token);
@@ -35,6 +35,6 @@ export const useCreateDoctorMutation = () => {
 	});
 
 	return {
-		...createDoctorMutation,
+		...createPackageMutation,
 	};
 };

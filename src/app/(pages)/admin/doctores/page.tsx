@@ -17,7 +17,7 @@ const DoctorsPage = () => {
 	const deletePatient = useDeleteDoctorMutation();
 
 	const { openModal } = useModalStore();
-
+	console.log(data?.data)
 	return (
 		<div className='w-full h-full flex flex-col gap-4'>
 			<div className='flex justify-end'>
@@ -35,9 +35,14 @@ const DoctorsPage = () => {
 			</div>
 
 			<div className='space-y-3'>
-				{isLoading ? (
+				{
+					isLoading &&
 					<TableLoadingSkeleton />
-				) : (
+				}
+
+
+				{
+					data?.data &&
 					<DataTable
 						columns={getDoctorsColumns({
 							handleDelete: deletePatient.mutate,
@@ -45,10 +50,20 @@ const DoctorsPage = () => {
 						})}
 						data={data!.data}
 					/>
-				)}
+				}
+				{
+					data?.data === undefined   &&
+					<DataTable
+						columns={getDoctorsColumns({
+							handleDelete: deletePatient.mutate,
+							handleEdit: openModal,
+						})}
+						data={[]}
+					/>
+				}
 
 				<Pagination
-					length={data?.data.length || 0}
+					length={data?.data ? data?.data.length : 0}
 					isLoading={isLoading}
 				/>
 			</div>

@@ -13,7 +13,7 @@ export const useDeleteAppointmentMutation = () => {
 
 	const deleteAppointmentMutation = useMutation({
 		mutationKey: ['delete-appointment', token],
-		mutationFn: (id: string) => {
+		mutationFn: (id: number) => {
 			return deleteAppointmentUseCase(apiFetcher, id, token);
 		},
 		onSuccess: (data) => {

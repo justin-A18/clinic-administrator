@@ -3,7 +3,7 @@
 import { create } from 'zustand';
 
 export type ModalType = 'ver' | 'editar' | 'crear';
-export type EntityType = 'paciente' | 'doctor' | 'servicio' | 'cita';
+export type EntityType = 'paciente' | 'doctor' | 'servicio' | 'cita' | 'paquetes';
 
 export interface ModalProps {
 	type: ModalType;

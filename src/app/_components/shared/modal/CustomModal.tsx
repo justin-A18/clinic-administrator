@@ -7,9 +7,9 @@ import { lazy } from 'react';
 const formComponents = {
 	paciente: lazy(() => import('../../patients/PatientForm')),
 	doctor: lazy(() => import('../../doctors/DoctorsForm')),
-	cita: lazy(() => import('../../patients/PatientForm')),
+	cita: lazy(() => import('../../appointments/AppointmentsForm')),
 	servicio: lazy(() => import('../../services/ServicesForm')),
-	paquete: lazy(() => import('../../patients/PatientForm')),
+	paquetes: lazy(() => import('../../packages/PackagesForm'))
 };
 
 export const CustomModal = () => {
