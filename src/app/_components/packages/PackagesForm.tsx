@@ -21,37 +21,50 @@ const PackagesForm = () => {
     });
 
     const createMutatePack = useCreatePackageMutation();
-    const { data: dataServices, isLoading } = useGetAllServicesQuery()
+    const { data: dataServices } = useGetAllServicesQuery()
     const { mutate: mutateEditPack } = useUpdatePackageMutation()
 
     useEffect(() => {
         if (data) {
-            console.log(data)
-            form.reset(data);
+            // console.log(data)
+            const dataEdit = {
+                name: (data as Packages).name,
+                service_ids: (data as Packages).services.map(e => ({
+                    value: e.id,
+                    label: e.name
+                }))
+
+            }
+            form.reset(dataEdit);
         }
-    }, [data]);
+    }, [data, form]);
 
 
     const onSubmit = (values: z.infer<typeof PackageSchema>) => {
 
         if (type === 'editar' && (data as Packages).id) {
 
-            // const DataPackEdit = {
-            //     name: values.name,
-            //     service_ids: (data as Packages).services.map(e => ({ id: e.id })),
-            //     id: (data as Packages).id
-            // }
-            // mutateEditPack(DataPackEdit);
-            // console.log("data editada");
-            // console.log(DataPackEdit);
+            const DataPackEdit = {
+                name: values.name,
+                service_ids: [...values.service_ids.map(e => e.value)],
+            }
+            const dataEdit = {
+                id: (data as Packages).id,
+                data: DataPackEdit
+            }
+            console.log("data editada");
+            console.log(DataPackEdit);
+            // mutateEditPack(dataEdit);
             return;
         }
-        // const DataPack = {
-        //     name: values.name,
-        //     service_ids: [values.service_ids]
-        // }
-        // createMutatePack.mutate(DataPack);
-        console.log(values)
+        console.log({
+            name: values.name,
+            service_ids: values.service_ids.map(e => e.value)
+        })
+        createMutatePack.mutate({
+            name: values.name,
+            service_ids: values.service_ids.map(e => e.value)
+        });
     };
 
 
@@ -89,14 +102,12 @@ const PackagesForm = () => {
                         control={form.control}
                         name='service_ids'
                         render={({ field }) => {
-                            console.log("Data que devuelve el adapter mapper al abrir los formularios")
-                            console.log(ApiMapper(dataServices?.data))
                             return (
                                 <FormItem className='flex-1'>
                                     <FormLabel className='font-medium'>Servicios</FormLabel>
                                     <FormControl>
                                         <MultipleSelector
-                                            defaultOptions={ApiMapper(isLoading ? []  : dataServices?.data)}
+                                            defaultOptions={ApiMapper(dataServices?.data)}
                                             placeholder='Selecciona los servicios'
                                             emptyIndicator={
                                                 <p className='text-center text-lg leading-10 text-gray-600 dark:text-gray-400'>

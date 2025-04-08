@@ -15,7 +15,7 @@ export const getDoctorsColumns = ({
 			header: 'ID',
 			cell: ({ getValue }) => {
 				const value = getValue<string>();
-				return `#${value}`;
+				return  value === undefined ? "sin datos" : `#${value}`;
 			},
 		},
 		{
@@ -23,7 +23,7 @@ export const getDoctorsColumns = ({
 			header: 'Nombre',
 			cell: ({ row }) => {
 				const { name } = row.original
-				return name
+				return name === undefined ? "sin datos" : name
 			},
 		},
 		{
@@ -31,7 +31,7 @@ export const getDoctorsColumns = ({
 			header: 'Apellido',
 			cell: ({ row }) => {
 				const { last_name } = row.original
-				return last_name
+				return last_name === undefined ? "sin datos" : last_name
 			},
 		},
 		{
@@ -39,7 +39,7 @@ export const getDoctorsColumns = ({
 			header: 'Correo',
 			cell: ({ row }) => {
 				const { email } = row.original
-				return email
+				return email === undefined ? "sin datos" : email
 			},
 		},
 		{
@@ -47,7 +47,7 @@ export const getDoctorsColumns = ({
 			header: 'DNI',
 			cell: ({ row }) => {
 				const { dni } = row.original
-				return dni
+				return dni === undefined ? "sin datos" : dni
 			},
 		},
 		{
@@ -55,7 +55,7 @@ export const getDoctorsColumns = ({
 			header: 'Teléfono',
 			cell: ({ row }) => {
 				const { phone_number } = row.original
-				return phone_number
+				return phone_number === undefined ? "sin datos" : phone_number
 			},
 		},
 		{
@@ -63,7 +63,7 @@ export const getDoctorsColumns = ({
 			header: 'Especialidad',
 			cell: ({ row }) => {
 				const { especialty } = row.original
-				return especialty
+				return especialty === undefined ? "sin datos" : especialty
 			},
 		},
 		{
@@ -71,7 +71,7 @@ export const getDoctorsColumns = ({
 			header: 'Días Laborales',
 			cell: ({ row }) => {
 				const { days } = row.original
-				return days
+				return days === undefined ? "sin datos" : days
 			},
 		},
 		{
@@ -79,7 +79,7 @@ export const getDoctorsColumns = ({
 			header: 'Hora Inicio',
 			cell: ({ row }) => {
 				const time = row.original.start_time;
-				return FormatHelper.date(time);
+				return time === undefined ? "sin datos" :  FormatHelper.date(time);
 			},
 		},
 		{
@@ -87,7 +87,7 @@ export const getDoctorsColumns = ({
 			header: 'Hora Fin',
 			cell: ({ row }) => {
 				const time = row.original.end_time;
-				return FormatHelper.date(time);
+				return time === undefined ? "sin datos" :  FormatHelper.date(time);
 			},
 		},
 		{

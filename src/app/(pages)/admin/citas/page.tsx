@@ -9,7 +9,6 @@ import { useDeleteAppointmentMutation, useGetAllAppointmentsQuery } from '@/app/
 // import { useGetAllAppointmentsByIdQuery } from '@/app/_hooks/appointment/useGetAllAppointmentsByIdQuery';
 import { useModalStore } from '@/app/_providers/store';
 import { Calendar, CircleFadingPlus } from 'lucide-react';
-
 const CitesPage = () => {
 
 	const { data, isLoading } = useGetAllAppointmentsQuery()
@@ -22,12 +21,18 @@ const CitesPage = () => {
 		<>
 			<div className='grid grid-cols-3 gap-4'>
 				{
-					data?.data &&
-					<CardInfo
-						icon={<Calendar size={20} />}
-						title='Citas Totales'
-						value={data?.data.length}
-					/>
+					data?.data ?
+						<CardInfo
+							icon={<Calendar size={20} />}
+							title='Citas Totales'
+							value={data?.data.length}
+						/>
+						:
+						<CardInfo
+							icon={<Calendar size={20} />}
+							title='Citas Totales'
+							value={0}
+						/>
 				}
 			</div>
 
@@ -47,29 +52,37 @@ const CitesPage = () => {
 				</div>
 
 				<div className='space-y-3'>
-					{
-						isLoading &&
-						<TableLoadingSkeleton />
-					}
+				{
+					isLoading &&
+					<TableLoadingSkeleton />
+				}
 
 
-
-					{isLoading ? (
-						<TableLoadingSkeleton />
-					) : (
-						<DataTable
-							columns={getAppointmentsColumns({
-								handleDelete: mutationDeleteApointment.mutate,
-								handleEdit: openModal,
-							})}
-							data={data!.data}
-						/>
-					)}
-
-					<Pagination
-						length={data?.data.length || 0}
-						isLoading={isLoading}
+				{
+					data?.data &&
+					<DataTable
+						columns={getAppointmentsColumns({
+							handleDelete: mutationDeleteApointment,
+							handleEdit: openModal,
+						})}
+						data={data!.data}
 					/>
+				}
+				{
+					data?.data === undefined &&
+					<DataTable
+						columns={getAppointmentsColumns({
+							handleDelete: mutationDeleteApointment,
+							handleEdit: openModal,
+						})}
+						data={[]}
+					/>
+				}
+
+				<Pagination
+					length={data?.data ? data?.data.length : 0}
+					isLoading={isLoading}
+				/>
 				</div>
 			</div>
 

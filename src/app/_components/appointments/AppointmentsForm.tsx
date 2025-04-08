@@ -24,6 +24,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { useGetAllPatientsQuery } from '@/app/_hooks/patient';
 import { useGetAllPackagesQuery } from '@/app/_hooks/package';
 import { useGetAllServicesQuery } from '@/app/_hooks/service';
+import { Apointment } from '@/core/entities';
 
 const AppointmentsForm = () => {
 
@@ -40,7 +41,7 @@ const AppointmentsForm = () => {
     const { data: dataServices, isLoading: loadServices } = useGetAllServicesQuery()
     const { data: dataPack, isLoading: loadPack } = useGetAllPackagesQuery()
 
-
+   
     useEffect(() => {
         if (data) {
             console.log(data)
@@ -55,9 +56,9 @@ const AppointmentsForm = () => {
             console.log(data)
             mutatePutAppointment({
                 body: values,
-                id: (data as Apointment).id,
+                id: (data as Apointment)?.id,
             });
-            
+
             return;
         }
         console.log(values)

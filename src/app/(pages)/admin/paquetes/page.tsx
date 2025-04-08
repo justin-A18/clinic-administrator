@@ -10,23 +10,28 @@ import { useDeletePackageMutation, useGetAllPackagesQuery } from '@/app/_hooks/p
 import { getPackagesColumns } from '@/app/_components/columns/packagesColumns';
 import { CardInfo } from '@/app/_components/shared/card';
 import { PackageIcon } from '@/app/_components/ui/package';
-
-const PatiensPage = () => {
+const PackagesPage = () => {
 	const { data, isLoading } = useGetAllPackagesQuery();
 	const deletePackage = useDeletePackageMutation();
 
 	const { openModal } = useModalStore();
-
 	return (
 		<div className='w-full h-full flex flex-col gap-4'>
 			<div className='grid grid-cols-3 gap-4'>
+
 				{
-					data?.data &&
-					<CardInfo
-					icon={<PackageIcon/>	}
-						title='Paquetes Totales'
-						value={data?.data.length}
-					/>
+					data && data.data.length ?
+						<CardInfo
+							icon={<PackageIcon />}
+							title='Paquetes Totales'
+							value={data?.data.length}
+						/>
+						:
+						<CardInfo
+							icon={<PackageIcon />}
+							title='Paquetes Totales'
+							value={0}
+						/>
 				}
 			</div>
 			<div className='flex justify-end'>
@@ -44,20 +49,38 @@ const PatiensPage = () => {
 			</div>
 
 			<div className='space-y-3'>
-				{isLoading ? (
-					<TableLoadingSkeleton />
-				) : (
-					<DataTable
-						columns={getPackagesColumns({
-							handleDelete: deletePackage.mutate,
-							handleEdit: openModal,
-						})}
-						data={data!.data}
-					/>
-				)}
+
+			{
+						isLoading &&
+						<TableLoadingSkeleton />
+					}
+
+					{
+						data &&
+						<DataTable
+							columns={getPackagesColumns({
+								handleDelete: deletePackage.mutate,
+								handleEdit: openModal,
+								handleDetails: openModal
+							})}
+							data={data?.data}
+						/>
+					}
+					{
+						data === undefined  &&
+						<DataTable
+							columns={getPackagesColumns({
+								handleDelete: deletePackage.mutate,
+								handleEdit: openModal,
+								handleDetails: openModal
+							})}
+							data={[]}
+						/>
+					}
+
 
 				<Pagination
-					length={data?.data.length || 0}
+					length={data && data?.data.length > 0 ? data?.data.length : 0}
 					isLoading={isLoading}
 				/>
 			</div>
@@ -65,4 +88,4 @@ const PatiensPage = () => {
 	);
 };
 
-export default PatiensPage;
+export default PackagesPage;

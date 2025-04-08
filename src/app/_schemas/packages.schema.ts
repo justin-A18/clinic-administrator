@@ -8,7 +8,7 @@ import { z } from "zod";
 
 const optionSchema = z.object({
   label: z.string(),
-  value: z.string(),
+  value: z.number(),
   disable: z.boolean().optional(),
 });
 

@@ -1,12 +1,12 @@
 export interface IServiceEntity {
-	id: string;
+	id: number;
 	name: string;
 	description: string;
 	price: number;
 }
 
 export interface IServiceMappper{
-	value: string
+	value: number
 	label: string
 	disable: boolean
 }

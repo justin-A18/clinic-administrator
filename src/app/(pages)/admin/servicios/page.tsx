@@ -30,17 +30,28 @@ const ServicesPage = () => {
 			</div>
 
 			<div className='space-y-3'>
-				{isLoading ? (
-					<TableLoadingSkeleton />
-				) : (
+				{
+					data &&
 					<DataTable
 						columns={getServicesColumns({
 							handleDelete: deleteMutateSync,
 							handleEdit: openModal,
+							handleDetails: openModal
 						})}
-						data={data!.data}
+						data={data?.data}
 					/>
-				)}
+				}
+				{
+					data === undefined  &&
+					<DataTable
+						columns={getServicesColumns({
+							handleDelete: deleteMutateSync,
+							handleEdit: openModal,
+							handleDetails: openModal
+						})}
+						data={[]}
+					/>
+				}
 
 				<Pagination
 					length={data?.data.length || 0}

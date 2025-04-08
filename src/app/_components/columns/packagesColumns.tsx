@@ -15,7 +15,7 @@ export const getPackagesColumns = ({
             header: 'ID paquete',
             cell: ({ getValue }) => {
                 const value = getValue<string>();
-                return `#${value}`;
+                return  value === undefined ? "sin datos" : `#${value}` ;
             },
         },
         {
@@ -23,7 +23,7 @@ export const getPackagesColumns = ({
             header: 'Nombre paquete',
             cell: ({ row }) => {
                 const { name } = row.original
-                return name
+                return name === undefined ? "sin datos" : name
             },
         },
         
@@ -34,25 +34,23 @@ export const getPackagesColumns = ({
             header: 'Precio total',
             cell: ({ row }) => {
                 const { price } = row.original
-                return FormatHelper.currency(price)
+                return price === undefined ? "sin datos" : FormatHelper.currency(price)
             },
         },
-
-
         {
             id: 'actions',
             cell: ({ row }) => {
                 const { original } = row;
                 return (
                     <CustomDropdown
-                        handleEdit={() =>
-                            handleEditDoctor({
-                                entityType: 'paquetes',
-                                type: 'editar',
-                                data: original,
-                            })
-                        }
-                        handleDelete={() => handleDeleteDoctor(original.id)}
+                    handleEdit={() =>
+                        handleEditDoctor({
+                            entityType: 'paquetes',
+                            type: 'editar',
+                            data: original,
+                        })
+                    }
+                    handleDelete={() => handleDeleteDoctor(original.id)}
                     />
                 );
             },

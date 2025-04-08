@@ -9,6 +9,7 @@ import { FormatHelper } from '@/config/helpers';
 export const getAppointmentsColumns = ({
 	handleDelete: handleDeleteAppointment,
 	handleEdit: handleEditAppointment,
+	// handleDetails: handleViewData
 
 }: ActionsColumnsProps): ColumnDef<Apointment>[] => [
 		{
@@ -83,7 +84,11 @@ export const getAppointmentsColumns = ({
 				const { original } = row;
 				return (
 					<CustomDropdown key={original.id}
-
+					// handleDetails={() => handleViewData({ 
+                    //     entityType: "cita",
+                    //     type: "ver",
+                    //     data: original
+                    // })}
 						handleEdit={() =>
 							handleEditAppointment({
 								entityType: 'cita',

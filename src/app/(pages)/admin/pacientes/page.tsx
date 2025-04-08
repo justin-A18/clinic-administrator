@@ -23,12 +23,18 @@ const PatiensPage = () => {
 		<div className='w-full h-full flex flex-col gap-4'>
 			<div className='grid grid-cols-3 gap-4'>
 				{
-					data?.data &&
-					<CardInfo
-						icon={ <Users size={20} />}
-						title='Pacientes Totales'
-						value={data?.data.length}
-					/>
+					data?.data ?
+						<CardInfo
+							icon={<Users size={20} />}
+							title='Pacientes Totales'
+							value={data?.data.length}
+						/>
+						:
+						<CardInfo
+							icon={<Users size={20} />}
+							title='Pacientes Totales'
+							value={0}
+						/>
 				}
 			</div>
 			<div className='flex justify-end'>
@@ -46,9 +52,14 @@ const PatiensPage = () => {
 			</div>
 
 			<div className='space-y-3'>
-				{isLoading ? (
+				{
+					isLoading &&
 					<TableLoadingSkeleton />
-				) : (
+				}
+
+
+				{
+					data?.data &&
 					<DataTable
 						columns={getPatientsColumns({
 							handleDelete: deletePatient.mutate,
@@ -56,10 +67,20 @@ const PatiensPage = () => {
 						})}
 						data={data!.data}
 					/>
-				)}
+				}
+				{
+					data?.data === undefined &&
+					<DataTable
+						columns={getPatientsColumns({
+							handleDelete: deletePatient.mutate,
+							handleEdit: openModal,
+						})}
+						data={[]}
+					/>
+				}
 
 				<Pagination
-					length={data?.data.length || 0}
+					length={data?.data ? data?.data.length : 0}
 					isLoading={isLoading}
 				/>
 			</div>
