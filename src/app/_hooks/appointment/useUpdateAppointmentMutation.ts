@@ -12,7 +12,7 @@ export const useUpdateAppointmentMutation = () => {
 
 	const updateAppointmentMutation = useMutation({
 		mutationKey: ['update-appointment', token],
-		mutationFn: ({ body, id }: { body: Record<string, unknown>, id: string; }) => {
+		mutationFn: ({ body, id }: { body: Record<string, unknown>, id: number; }) => {
 			return updateAppointmentUseCase(apiFetcher, body, id, token);
 		},
 		onSuccess: (data) => {

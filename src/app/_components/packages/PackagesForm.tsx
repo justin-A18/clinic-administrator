@@ -14,7 +14,7 @@ import { DialogTitle, Form, FormControl, FormField, FormItem, FormLabel, FormMes
 import { useGetAllServicesQuery } from '@/app/_hooks/service';
 import { Packages } from '@/core/entities/package.entity';
 import MultipleSelector from '../shared/multiple-selector/MultipleSelector';
-import { ApiMapper } from '@/config/adapters/mapper/ApiMapper.adapter';
+import { ServiceEntityMapper } from '@/config/adapters/mapper/mapperpattern.adapter';
 
 const PackagesForm = () => {
     const { data, type, entityType } = useModalStore();
@@ -110,12 +110,15 @@ const PackagesForm = () => {
                         control={form.control}
                         name='service_ids'
                         render={({ field }) => {
+
+
+                            const resservice = ServiceEntityMapper.mapArray(dataServices?.data)
                             return (
                                 <FormItem className='flex-1'>
                                     <FormLabel className='font-medium'>Servicios</FormLabel>
                                     <FormControl>
                                         <MultipleSelector
-                                            defaultOptions={ApiMapper(dataServices?.data)}
+                                            defaultOptions={resservice}
                                             placeholder='Selecciona los servicios'
                                             onChange={field.onChange}
                                             emptyIndicator={
