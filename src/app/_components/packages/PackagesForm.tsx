@@ -1,4 +1,7 @@
-import { useCreatePackageMutation, useUpdatePackageMutation } from '@/app/_hooks/package';
+import {
+    useCreatePackageMutation,
+     useUpdatePackageMutation
+} from '@/app/_hooks/package';
 import { useModalStore } from '@/app/_providers/store';
 import { PackageSchema } from '@/app/_schemas/packages.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -23,7 +26,6 @@ const PackagesForm = () => {
     const createMutatePack = useCreatePackageMutation();
     const { data: dataServices } = useGetAllServicesQuery()
     const { mutate: mutateEditPack } = useUpdatePackageMutation()
-
     useEffect(() => {
         if (data) {
             // console.log(data)
@@ -48,13 +50,15 @@ const PackagesForm = () => {
                 name: values.name,
                 service_ids: [...values.service_ids.map(e => e.value)],
             }
-            const dataEdit = {
-                id: (data as Packages).id,
-                data: DataPackEdit
-            }
             console.log("data editada");
-            console.log(DataPackEdit);
-            // mutateEditPack(dataEdit);
+            console.log({
+                id: (data as Packages).id,
+                body: DataPackEdit
+            });
+            mutateEditPack({
+                id: (data as Packages).id,
+                body: DataPackEdit
+            });
             return;
         }
         console.log({
@@ -66,7 +70,11 @@ const PackagesForm = () => {
             service_ids: values.service_ids.map(e => e.value)
         });
     };
-
+    // const options: IServiceMappper[] = [
+    //     { value: 1, label: 'Odontología', disable: false },
+    //     { value: 2, label: 'Cardiología', disable: false }
+    //   ];
+      
 
     return (
         <Form {...form}>
@@ -109,12 +117,12 @@ const PackagesForm = () => {
                                         <MultipleSelector
                                             defaultOptions={ApiMapper(dataServices?.data)}
                                             placeholder='Selecciona los servicios'
+                                            onChange={field.onChange}
                                             emptyIndicator={
                                                 <p className='text-center text-lg leading-10 text-gray-600 dark:text-gray-400'>
                                                     No hay resultados
                                                 </p>
                                             }
-                                            {...field}
                                         />
                                     </FormControl>
                                     <FormMessage />
