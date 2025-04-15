@@ -14,7 +14,7 @@ import { CircleFadingPlus } from 'lucide-react';
 
 const DoctorsPage = () => {
 	const { data, isLoading } = useGetAllDoctorsQuery();
-	const deletePatient = useDeleteDoctorMutation();
+	const deleteDoctor = useDeleteDoctorMutation();
 
 	const { openModal } = useModalStore();
 	console.log(data?.data)
@@ -42,25 +42,24 @@ const DoctorsPage = () => {
 
 
 				{
-					data?.data &&
+					data?.data ?
 					<DataTable
 						columns={getDoctorsColumns({
-							handleDelete: deletePatient.mutate,
+							handleDelete: deleteDoctor.mutate,
 							handleEdit: openModal,
 						})}
 						data={data!.data}
 					/>
-				}
-				{
-					data?.data === undefined   &&
+					: 
 					<DataTable
 						columns={getDoctorsColumns({
-							handleDelete: deletePatient.mutate,
+							handleDelete: deleteDoctor.mutate,
 							handleEdit: openModal,
 						})}
 						data={[]}
 					/>
 				}
+				
 
 				<Pagination
 					length={data?.data ? data?.data.length : 0}

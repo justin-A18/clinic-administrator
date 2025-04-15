@@ -45,14 +45,14 @@ export const getServicesColumns = ({
 
 			return (
 				<CustomDropdown
-					handleDelete={() => handleDelete(service.id)}
-					handleEdit={() =>
-						handleEdit({
-							entityType: 'servicio',
-							type: 'editar',
-							data: service,
-						})
-					}
+				handleEdit={() =>
+					handleEdit({
+						entityType: 'servicio',
+						type: 'editar',
+						data: service,
+					})
+				}
+				handleDelete={() => handleDelete(service.id)}
 				/>
 			);
 		},

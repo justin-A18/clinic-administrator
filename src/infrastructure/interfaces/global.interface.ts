@@ -13,6 +13,6 @@ export interface ErrorResponse {
 
 export interface ActionsColumnsProps {
 	handleEdit: ({ entityType, type, data }: ModalProps) => void;
-	handleDelete: (id: number) => void;
-	handleDetails: ({ entityType, type, data }: ModalProps) => void;
+	handleDelete: (id: string) => void;
+	handleDetails?: ({ entityType, type, data }: ModalProps) => void;
 }

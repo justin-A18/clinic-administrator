@@ -50,33 +50,32 @@ const PackagesPage = () => {
 
 			<div className='space-y-3'>
 
-			{
-						isLoading &&
-						<TableLoadingSkeleton />
-					}
+				{
+					isLoading &&
+					<TableLoadingSkeleton />
+				}
 
-					{
-						data &&
+				{
+					data ?
 						<DataTable
 							columns={getPackagesColumns({
 								handleDelete: deletePackage.mutate,
 								handleEdit: openModal,
-								handleDetails: openModal
 							})}
 							data={data?.data}
 						/>
-					}
-					{
-						data === undefined  &&
+						:
 						<DataTable
 							columns={getPackagesColumns({
 								handleDelete: deletePackage.mutate,
 								handleEdit: openModal,
-								handleDetails: openModal
 							})}
 							data={[]}
 						/>
-					}
+
+				}
+
+
 
 
 				<Pagination

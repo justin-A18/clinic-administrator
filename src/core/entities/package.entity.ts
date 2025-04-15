@@ -5,14 +5,14 @@ export interface IPackagesEntity {
   }
   
   export interface Packages {
-    id: number
+    id: string
     name: string
     services: Service[]
     price: number
   }
   
   export interface Service {
-    id: number
+    id: string
     name: string
     description: string
     price: number

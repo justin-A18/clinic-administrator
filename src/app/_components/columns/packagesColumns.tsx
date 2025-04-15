@@ -7,8 +7,8 @@ import { FormatHelper } from '@/config/helpers';
 import { Packages } from '@/core/entities/package.entity';
 
 export const getPackagesColumns = ({
-    handleDelete: handleDeleteDoctor,
-    handleEdit: handleEditDoctor,
+    handleDelete: handleDeletePackage,
+    handleEdit: handleEditPackage,
 }: ActionsColumnsProps): ColumnDef<Packages>[] => [
         {
             accessorKey: 'id',
@@ -44,13 +44,13 @@ export const getPackagesColumns = ({
                 return (
                     <CustomDropdown
                     handleEdit={() =>
-                        handleEditDoctor({
+                        handleEditPackage({
                             entityType: 'paquetes',
                             type: 'editar',
                             data: original,
                         })
                     }
-                    handleDelete={() => handleDeleteDoctor(original.id)}
+                    handleDelete={() => handleDeletePackage(original.id)}
                     />
                 );
             },

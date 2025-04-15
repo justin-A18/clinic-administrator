@@ -12,7 +12,7 @@ export const useUpdatePackageMutation = () => {
 
 	const updatePackageMutation = useMutation({
 		mutationKey: ['update-package', token],
-		mutationFn: ({ body, id }: { body: Record<string, unknown>, id: number; }) => {
+		mutationFn: ({ body, id }: { body: Record<string, unknown>, id: string; }) => {
 			return updatePackageUseCase(apiFetcher, body, id, token);
 		},
 		onSuccess: (data) => {

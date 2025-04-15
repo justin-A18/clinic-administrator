@@ -59,7 +59,7 @@ const PatiensPage = () => {
 
 
 				{
-					data?.data &&
+					data?.data ?
 					<DataTable
 						columns={getPatientsColumns({
 							handleDelete: deletePatient.mutate,
@@ -67,9 +67,7 @@ const PatiensPage = () => {
 						})}
 						data={data!.data}
 					/>
-				}
-				{
-					data?.data === undefined &&
+					: 
 					<DataTable
 						columns={getPatientsColumns({
 							handleDelete: deletePatient.mutate,
@@ -78,6 +76,8 @@ const PatiensPage = () => {
 						data={[]}
 					/>
 				}
+				
+				
 
 				<Pagination
 					length={data?.data ? data?.data.length : 0}

@@ -9,14 +9,12 @@ import { Ellipsis } from 'lucide-react';
 
 interface CustomDropdownProps {
 	handleEdit: () => void;
-	handleDelete: () => void;
-	handleDetails?: () => void;
+	handleDelete: () => void
 }
 
 export const CustomDropdown = ({
 	handleEdit,
 	handleDelete,
-	handleDetails,
 }: CustomDropdownProps) => {
 	return (
 		<DropdownMenu>
@@ -24,7 +22,7 @@ export const CustomDropdown = ({
 				<Ellipsis />
 			</DropdownMenuTrigger>
 			<DropdownMenuContent>
-				<DropdownMenuItem onClick={handleDetails}>
+				<DropdownMenuItem >
 					Ver detalles
 				</DropdownMenuItem>
 				<DropdownMenuItem onClick={handleEdit}>Editar datos</DropdownMenuItem>
