@@ -59,25 +59,24 @@ const CitesPage = () => {
 
 
 				{
-					data?.data &&
+					data?.data ?
 					<DataTable
 						columns={getAppointmentsColumns({
-							handleDelete: mutationDeleteApointment,
+							handleDelete: mutationDeleteApointment.mutate,
 							handleEdit: openModal,
 						})}
 						data={data!.data}
 					/>
-				}
-				{
-					data?.data === undefined &&
+					: 
 					<DataTable
 						columns={getAppointmentsColumns({
-							handleDelete: mutationDeleteApointment,
+							handleDelete: mutationDeleteApointment.mutate,
 							handleEdit: openModal,
 						})}
 						data={[]}
 					/>
 				}
+				
 
 				<Pagination
 					length={data?.data ? data?.data.length : 0}

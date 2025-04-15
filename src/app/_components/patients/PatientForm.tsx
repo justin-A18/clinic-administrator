@@ -62,7 +62,7 @@ const PatientForm = () => {
 		if (data) {
 			form.reset(data);
 		}
-	}, [data]);
+	}, [data, form]);
 
 	return (
 		<Form {...form}>

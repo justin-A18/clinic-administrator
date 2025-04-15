@@ -47,7 +47,7 @@ const ServicesForm = () => {
 		if (data) {
 			form.reset(data);
 		}
-	}, [data]);
+	}, [data, form]);
 
 	return (
 		<Form {...form}>

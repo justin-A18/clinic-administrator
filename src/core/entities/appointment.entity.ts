@@ -5,7 +5,7 @@ export interface IAppointmentEntity {
   }
   
   export interface Apointment {
-	id: number
+	id: string
 	doctor_id: number
 	patient: Patient
 	patient_dni: string
@@ -19,7 +19,7 @@ export interface IAppointmentEntity {
   }
   
   export interface Patient {
-	id: number
+	id: string
 	name: string
 	last_name: string
 	dni: string

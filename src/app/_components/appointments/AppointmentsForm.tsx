@@ -47,7 +47,7 @@ const AppointmentsForm = () => {
             console.log(data)
             form.reset(data);
         }
-    }, [data]);
+    }, [data, form]);
 
     const onSubmit = (values: z.infer<typeof AppointmentSchema>) => {
 

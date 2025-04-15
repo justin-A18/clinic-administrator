@@ -13,7 +13,7 @@ export const useDeletePackageMutation = () => {
 
 	const deletePackageMutation = useMutation({
 		mutationKey: ['delete-package', token],
-		mutationFn: (id: number) => {
+		mutationFn: (id: string) => {
 			return deletePackageUseCase(apiFetcher, id, token);
 		},
 		onSuccess: (data) => {

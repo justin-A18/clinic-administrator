@@ -64,7 +64,7 @@ const DoctorsForm = () => {
 					: [],
 			});
 		}
-	}, [data]);
+	}, [data, form]);
 
 	return (
 		<Form {...form}>

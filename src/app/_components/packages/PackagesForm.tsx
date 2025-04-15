@@ -28,16 +28,13 @@ const PackagesForm = () => {
     const { mutate: mutateEditPack } = useUpdatePackageMutation()
     useEffect(() => {
         if (data) {
-            // console.log(data)
-            const dataEdit = {
+            form.reset({
                 name: (data as Packages).name,
                 service_ids: (data as Packages).services.map(e => ({
                     value: e.id,
                     label: e.name
                 }))
-
-            }
-            form.reset(dataEdit);
+            });
         }
     }, [data, form]);
 
@@ -69,12 +66,7 @@ const PackagesForm = () => {
             name: values.name,
             service_ids: values.service_ids.map(e => e.value)
         });
-    };
-    // const options: IServiceMappper[] = [
-    //     { value: 1, label: 'Odontología', disable: false },
-    //     { value: 2, label: 'Cardiología', disable: false }
-    //   ];
-      
+    }
 
     return (
         <Form {...form}>
